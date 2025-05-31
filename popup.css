@@ -1,62 +1,81 @@
-/* popup.css */
-
-/* Glassmorphism-style card */
-.card-glass {
-  background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
-  border-radius: 1rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Text styling for clarity and legibility */
+/* Global layout */
+html,
 body {
+  width: 320px;
+  max-height: 480px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
-  color: white;
+  color: #000000; /* Global black text */
   background-color: transparent;
 }
 
-/* Small status or notification messages */
+/* Glass-style container */
+.card-glass {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Small status text */
 #statusText {
   font-style: italic;
+  color: #000;
 }
 
-/* Score panel list items */
-#mutualList li {
-  padding: 4px 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+/* Score card container */
+#mutualList {
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-/* Success toast styling */
-.toast {
-  position: fixed;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background-color: #198754; /* Bootstrap success green */
-  color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+/* Individual connection card */
+.score-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 120px;
+  flex: 1 1 calc(50% - 10px);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  color: #000;
+  font-weight: 600;
+}
+
+/* Name text */
+.score-card .name {
   font-size: 13px;
-  display: none;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: #000;
 }
 
-/* Fade-in animation for the toast */
-.toast.show {
-  display: block;
-  animation: fadeIn 0.4s ease-in-out;
+/* Score text */
+.score-card .score {
+  font-size: 12px;
+  color: #111;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, 20px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-/* Hide login indicator until needed */
 .login-indicator {
   display: none;
 }
+
+.disclaimer summary {
+  cursor: pointer;
+  color: #000;
+}
+
+.disclaimer p {
+  color: #333;
+  font-size: 12px;
+}
+
