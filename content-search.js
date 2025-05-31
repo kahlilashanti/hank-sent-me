@@ -1,6 +1,6 @@
 console.log('[Hank] Full Mutuals content script running ✅');
 
-function parseSearchMutuals() {
+function extractMutuals() {
     const names = [];
     const anchors = document.querySelectorAll('a');
     anchors.forEach(a => {
@@ -20,4 +20,14 @@ function parseSearchMutuals() {
     }
 }
 
-setTimeout(parseSearchMutuals, 1500);
+function setupRefreshListener() {
+    window.addEventListener("hank-refresh", () => {
+        console.log("[Hank] 🔁 Refresh triggered from popup");
+        extractMutuals();
+    });
+}
+
+setTimeout(() => {
+    extractMutuals();
+    setupRefreshListener();
+}, 1500);

@@ -5,30 +5,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('statusText');
     const openFullBtn = document.getElementById('openFullBtn');
 
+    // Get cached mutuals from background
     chrome.runtime.sendMessage({ type: 'GET_MUTUALS' }, (response) => {
         const mutuals = response?.mutuals || [];
+        mutualList.innerHTML = ''; // Clear existing
+
         if (mutuals.length > 0) {
             scorePanel.classList.remove('d-none');
-            mutuals.forEach(name => {
-                const score = Math.floor(Math.random() * 50 + 50);
-                const li = document.createElement('li');
-                li.className = 'list-group-item bg-transparent border-white';
-                li.textContent = `${name} – Hank Score: ${score}`;
-                mutualList.appendChild(li);
+            const topMutuals = mutuals.slice(0, 10); // limit to top 10
+
+            topMutuals.forEach(name => {
+                const score = calculateHankScore(name);
+                const card = document.createElement('div');
+                card.className = 'card card-glass-sm p-2 text-center flex-fill';
+                card.innerHTML = `
+                    <div class="fw-bold mb-1">${name}</div>
+                    <div class="hank-score">Hank Score: ${score}</div>
+                `;
+                mutualList.appendChild(card);
             });
-            statusText.textContent = `Found ${mutuals.length} connections.`;
+
+            statusText.textContent = `Top ${topMutuals.length} mutual connections scored.`;
         } else {
             statusText.textContent = 'No mutuals found on this page.';
         }
     });
 
+    // Listen for context shift to profile pages
     chrome.runtime.onMessage.addListener((msg) => {
         if (msg.type === 'HANK_PROFILE_PAGE') {
             profilePrompt.classList.remove('d-none');
+            scorePanel.classList.add('d-none');
             statusText.textContent = 'Click below to open the full mutuals list.';
         }
     });
 
+    // Button to open full mutuals
     openFullBtn?.addEventListener('click', () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const tabUrl = tabs[0].url;
@@ -40,4 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Basic scoring logic – replace with real heuristics later
+    function calculateHankScore(name) {
+        // For now: randomize for testing
+        return Math.floor(Math.random() * 50 + 50); // 50–99
+    }
 });

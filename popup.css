@@ -79,3 +79,8 @@ body {
   font-size: 12px;
 }
 
+.text-muted {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+
