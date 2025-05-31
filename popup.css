@@ -1,0 +1,62 @@
+/* popup.css */
+
+/* Glassmorphism-style card */
+.card-glass {
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Text styling for clarity and legibility */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  color: white;
+  background-color: transparent;
+}
+
+/* Small status or notification messages */
+#statusText {
+  font-style: italic;
+}
+
+/* Score panel list items */
+#mutualList li {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Success toast styling */
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: #198754; /* Bootstrap success green */
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 13px;
+  display: none;
+}
+
+/* Fade-in animation for the toast */
+.toast.show {
+  display: block;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Hide login indicator until needed */
+.login-indicator {
+  display: none;
+}

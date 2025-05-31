@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "Hank Sent Me",
+    "version": "0.2.1",
+    "description": "Score the strength of LinkedIn mutual connections.",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://www.linkedin.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/in/*"
+            ],
+            "js": [
+                "content-profile.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://www.linkedin.com/search/results/people/*"
+            ],
+            "js": [
+                "content-search.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ]
+}
